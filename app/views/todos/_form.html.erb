@@ -1,27 +1,29 @@
-<%= form_with(model: todo) do |form| %>
+<%= form_with(model: todo, class: "space-y-5") do |form| %>
   <% if todo.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(todo.errors.count, "error") %> prohibited this todo from being saved:</h2>
-
-      <ul>
+    <div class="bg-red-950 border border-red-800 rounded px-4 py-3 text-sm text-red-300">
+      <p class="font-medium mb-1"><%= pluralize(todo.errors.count, "error") %> prevented this from saving:</p>
+      <ul class="list-none space-y-0.5 text-xs text-red-400">
         <% todo.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+          <li>— <%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+  <div class="space-y-1.5">
+    <%= form.label :title, class: "block text-xs text-zinc-500" %>
+    <%= form.text_field :title,
+        class: "w-full bg-zinc-900 border border-zinc-700 focus:border-emerald-600 focus:outline-none text-zinc-100 text-sm px-3 py-2.5 rounded placeholder-zinc-700 transition-colors",
+        placeholder: "what needs to be done?" %>
   </div>
 
-  <div>
-    <%= form.label :completed, style: "display: block" %>
-    <%= form.checkbox :completed %>
+  <div class="flex items-center gap-3">
+    <%= form.checkbox :completed, class: "w-4 h-4 rounded border-zinc-700 bg-zinc-900 text-emerald-500 focus:ring-emerald-600 focus:ring-offset-zinc-950" %>
+    <%= form.label :completed, class: "text-sm text-zinc-400 select-none" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="flex items-center gap-3 pt-1">
+    <%= form.submit class: "bg-emerald-700 hover:bg-emerald-600 text-white text-sm font-medium px-5 py-2 rounded transition-colors cursor-pointer" %>
+    <%= link_to "cancel", todos_path, class: "text-sm text-zinc-600 hover:text-zinc-400 transition-colors" %>
   </div>
 <% end %>

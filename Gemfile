@@ -31,6 +31,9 @@ gem "bootsnap", require: false
 # Official MCP Ruby SDK — exposes an HTTP MCP server
 gem "mcp"
 
+# Tailwind CSS via standalone CLI
+gem "tailwindcss-rails"
+
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false
 

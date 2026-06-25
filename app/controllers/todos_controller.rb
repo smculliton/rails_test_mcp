@@ -33,7 +33,10 @@ class TodosController < ApplicationController
   # PATCH/PUT /todos/1
   def update
     if @todo.update(todo_params)
-      redirect_to @todo, notice: "Todo was successfully updated.", status: :see_other
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to @todo, notice: "Todo was successfully updated.", status: :see_other }
+      end
     else
       render :edit, status: :unprocessable_content
     end

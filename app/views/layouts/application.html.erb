@@ -1,29 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full bg-zinc-950">
   <head>
-    <title><%= content_for(:title) || "Rails Test Mcp" %></title>
+    <title><%= content_for(:title) || "TodoMCP" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Rails Test Mcp">
-    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="h-full bg-zinc-950 text-zinc-100 font-mono antialiased">
+    <div class="min-h-full flex flex-col">
+      <header class="border-b border-zinc-800 bg-zinc-950">
+        <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-emerald-400 text-lg">▸</span>
+            <%= link_to "todo_mcp", todos_path, class: "text-zinc-100 font-bold tracking-tight hover:text-emerald-400 transition-colors" %>
+            <span class="text-zinc-700 text-sm">v1.0.0</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-zinc-600">
+            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>MCP server running on :3000</span>
+          </div>
+        </div>
+      </header>
+
+      <% if notice.present? %>
+        <div class="max-w-4xl mx-auto w-full px-6 pt-4">
+          <div class="text-xs font-mono bg-emerald-950 border border-emerald-800 text-emerald-300 px-4 py-2 rounded flex items-center gap-2">
+            <span class="text-emerald-500">✓</span> <%= notice %>
+          </div>
+        </div>
+      <% end %>
+
+      <main class="flex-1 max-w-4xl mx-auto w-full px-6 py-8">
+        <%= yield %>
+      </main>
+
+      <footer class="border-t border-zinc-900 py-4">
+        <div class="max-w-4xl mx-auto px-6 flex items-center justify-between text-xs text-zinc-700">
+          <span>rails 8.1 · sqlite3 · mcp v0.21</span>
+          <span><%= link_to "/mcp", "/mcp", class: "hover:text-zinc-500 transition-colors" %></span>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>

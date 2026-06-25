@@ -1,11 +1,12 @@
-<% content_for :title, "New todo" %>
+<% content_for :title, "new todo" %>
 
-<h1>New todo</h1>
+<div class="max-w-lg">
+  <div class="mb-6">
+    <%= link_to "← todos", todos_path, class: "text-xs text-zinc-600 hover:text-zinc-400 transition-colors" %>
+    <h1 class="text-xl font-bold text-zinc-100 tracking-tight mt-3">new todo</h1>
+  </div>
 
-<%= render "form", todo: @todo %>
-
-<br>
-
-<div>
-  <%= link_to "Back to todos", todos_path %>
+  <div class="bg-zinc-900/50 border border-zinc-800 rounded-lg p-6">
+    <%= render "form", todo: @todo %>
+  </div>
 </div>

@@ -1,10 +1,40 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, @todo.title %>
 
-<%= render @todo %>
+<div class="max-w-lg">
+  <div class="mb-6">
+    <%= link_to "← todos", todos_path, class: "text-xs text-zinc-600 hover:text-zinc-400 transition-colors" %>
+  </div>
 
-<div>
-  <%= link_to "Edit this todo", edit_todo_path(@todo) %> |
-  <%= link_to "Back to todos", todos_path %>
+  <div class="bg-zinc-900/50 border border-zinc-800 rounded-lg p-6 space-y-4">
+    <div class="flex items-start justify-between gap-4">
+      <h1 class="text-lg font-bold text-zinc-100 leading-snug"><%= @todo.title %></h1>
+      <% if @todo.completed? %>
+        <span class="shrink-0 inline-flex items-center gap-1.5 text-xs text-emerald-400 bg-emerald-950 border border-emerald-900 px-2 py-0.5 rounded">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>done
+        </span>
+      <% else %>
+        <span class="shrink-0 inline-flex items-center gap-1.5 text-xs text-zinc-400 bg-zinc-900 border border-zinc-800 px-2 py-0.5 rounded">
+          <span class="w-1.5 h-1.5 rounded-full bg-zinc-600"></span>pending
+        </span>
+      <% end %>
+    </div>
 
-  <%= button_to "Destroy this todo", @todo, method: :delete %>
+    <div class="border-t border-zinc-800 pt-4 grid grid-cols-2 gap-4 text-xs">
+      <div>
+        <p class="text-zinc-600 mb-1">id</p>
+        <p class="text-zinc-400">#<%= @todo.id %></p>
+      </div>
+      <div>
+        <p class="text-zinc-600 mb-1">created</p>
+        <p class="text-zinc-400"><%= @todo.created_at.strftime("%b %d, %Y") %></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex items-center gap-4 mt-4">
+    <%= link_to "edit", edit_todo_path(@todo), class: "text-sm text-zinc-500 hover:text-zinc-200 border border-zinc-700 hover:border-zinc-600 px-4 py-2 rounded transition-colors" %>
+    <%= button_to "delete", @todo, method: :delete,
+        class: "text-sm text-zinc-700 hover:text-red-400 border border-zinc-900 hover:border-red-900 px-4 py-2 rounded transition-colors cursor-pointer bg-transparent font-mono",
+        form: { data: { turbo_confirm: "delete \"#{@todo.title}\"?" } } %>
+  </div>
 </div>
