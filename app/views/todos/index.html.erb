@@ -24,40 +24,14 @@
     <table class="w-full text-sm">
       <thead>
         <tr class="border-b border-zinc-800 bg-zinc-900/50">
-          <th class="text-left px-4 py-3 text-xs text-zinc-500 font-medium w-12">#</th>
+          <th class="px-4 py-3 w-12"></th>
           <th class="text-left px-4 py-3 text-xs text-zinc-500 font-medium">title</th>
           <th class="text-left px-4 py-3 text-xs text-zinc-500 font-medium w-28">status</th>
           <th class="px-4 py-3 text-xs text-zinc-500 font-medium w-28 text-right">actions</th>
         </tr>
       </thead>
       <tbody>
-        <% @todos.each do |todo| %>
-          <tr class="border-b border-zinc-900 hover:bg-zinc-900/40 transition-colors group">
-            <td class="px-4 py-3 text-zinc-600 text-xs"><%= todo.id %></td>
-            <td class="px-4 py-3">
-              <span class="<%= todo.completed? ? 'text-zinc-600 line-through' : 'text-zinc-200' %>">
-                <%= todo.title %>
-              </span>
-            </td>
-            <td class="px-4 py-3">
-              <% if todo.completed? %>
-                <span class="inline-flex items-center gap-1.5 text-xs text-emerald-400 bg-emerald-950 border border-emerald-900 px-2 py-0.5 rounded">
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>done
-                </span>
-              <% else %>
-                <span class="inline-flex items-center gap-1.5 text-xs text-zinc-400 bg-zinc-900 border border-zinc-800 px-2 py-0.5 rounded">
-                  <span class="w-1.5 h-1.5 rounded-full bg-zinc-600"></span>pending
-                </span>
-              <% end %>
-            </td>
-            <td class="px-4 py-3 text-right">
-              <div class="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                <%= link_to "edit", edit_todo_path(todo), class: "text-xs text-zinc-500 hover:text-zinc-200 transition-colors" %>
-                <%= button_to "delete", todo, method: :delete, class: "text-xs text-zinc-700 hover:text-red-400 transition-colors cursor-pointer bg-transparent border-0 p-0 font-mono", form: { data: { turbo_confirm: "delete \"#{todo.title}\"?" } } %>
-              </div>
-            </td>
-          </tr>
-        <% end %>
+        <%= render partial: "todo_row", collection: @todos, as: :todo %>
       </tbody>
     </table>
   </div>
