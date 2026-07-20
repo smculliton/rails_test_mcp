@@ -17,5 +17,6 @@ Rails.application.routes.draw do
   resources :todos
   root "todos#index"
 
+  mount ActionCable.server => "/cable"
   get "up" => "rails/health#show", as: :rails_health_check
 end
